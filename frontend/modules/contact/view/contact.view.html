@@ -1,0 +1,43 @@
+<div class="contact">
+	<div class="contact1">
+		<h1>Contact</h1>	
+
+		<form id="contact_form" name="contact_form" class="form-contact">
+			<table>
+				<tr>
+					   <td>Nombre: </td>
+						   <td id="error_name"><input required ng-model="contact.inputName" name="inputName" type="text" id="cname" placeholder="Nombre" minlength="2" maxlength="100"/>
+						   <span class="text-danger" ng-show="contact_form.inputName.$error.required && (contact_form.inputName.$dirty || contact_form.inputName.$touched)">Introduzca un nombre</span>
+					  </td>
+				</tr>
+				<tr>
+					   <td>Correo electronico: </td>
+						   <td id="error_emial"><input type="email" ng-model="contact.inputEmail" id="inputEmail" name="inputEmail" required placeholder="Correo electronico" maxlength="100" ng-pattern="/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/"/>
+						   <span class="text-danger" ng-show="contact_form.inputEmail.$error.required && (contact_form.inputEmail.$dirty || contact_form.inputEmail.$touched)">Introduzca un email</span>
+						   <span class="text-danger" ng-show="contact_form.inputEmail.$error.email">El formato del email es invalido</span>
+					   </td>
+	
+				</tr>
+				<tr>
+					  <td>Asunto: </td>
+					  <td>
+						  <input required ng-model="contact.inputSubject" type="text" id="inputSubject" name="inputSubject" placeholder="Motivo" maxlength="100">
+						  <span class="text-danger" ng-show="contact_form.inputSubject.$error.required && (contact_form.inputSubject.$dirty || contact_form.inputSubject.$touched)">Introduzca un motivo</span>
+					   </td>
+				 </tr>
+				 <tr>
+					   <td>Mensaje: </td>
+					   <td id="error_dinfo">
+						   <textarea required ng-model="contact.inputMessage" name="inputMessage" rows="4" cols="50" id="inputMessage"></textarea>
+						   <span class="text-danger" ng-show="contact_form.inputMessage.$error.required && (contact_form.inputMessage.$dirty || contact_form.inputMessage.$touched)">Introduzca un mensaje</span>
+					   </td>
+				</tr>
+				<tr>
+					   <td><input class="btn btn-primary" type="button" id="send_contact" name="send_contact" value="Send"
+					   ng-show="contact_form.inputName.$valid && contact_form.inputEmail.$valid && contact_form.inputSubject.$valid && contact_form.inputMessage.$valid"
+					   ng-click="SubmitContact()"/></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>

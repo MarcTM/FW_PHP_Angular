@@ -1,0 +1,83 @@
+<h1>Profile</h1>
+
+<div id="content_profile_img"><div id='img_profile'><img ng-src='{{avatar}}'  ng-click="openDrop(userInfo.IDuser)"></div></div>
+<button ng-click="showSprof()">Mostrar perfil</button>
+<button ng-click="showEprof()">Editar perfil</button>
+<button ng-click="showCdogs()">Mis perros</button>
+<button ng-click="showAdogs()">Mis adopciones</button>
+
+<div id='content_info_user' ng-show="sprofV">
+	<span>Usuario: {{userInfo.user}}</span><br/>
+	<span>Email: {{userInfo.email}}</span><br/>
+	<span>Nombre: {{userInfo.name}}</span><br/>
+	<span>Apellido: {{userInfo.surname}}</span><br/>
+	<span>Fecha de nacimiento: {{userInfo.birthday}}</span>
+</div>
+
+<div id='content_edit_user' ng-show="eprofV">
+	<form id="profile_form" name="profile_form">
+		<table>
+			<tr>
+			   	<td>Usuario: </td>
+			   	<td>
+			   		<input type='text' value='{{userInfo.user}}' readonly=''/>
+			   	</td>
+			</tr>
+		   	<tr>
+		       	<td>Correo electronico: </td>
+		       	<td>
+		       		<input type='text' value='{{userInfo.email}}' readonly=''/>
+		       	</td>
+		    </tr>
+		    <tr>
+		    	<td>Nombre: </td>
+			   	<td>
+						<input required type="text" name="inputName" id="inputName" ng-model="userInfo.name" placeholder="Nombre" ng-minlength="3" ng-maxlength="20"/>
+			   			<span class="text-danger" ng-show="profile_form.inputName.$error.required && (profile_form.inputName.$dirty || profile_form.inputName.$touched)">Introduzca un Nombre</span>
+						<span class="text-danger" ng-show="profile_form.inputName.$error.minlength">Introduzca mas de 3 caracteres</span>
+						<span class="text-danger" ng-show="profile_form.inputName.$error.maxlength">Introduzca menos de 20 caracteres</span>
+			   	</td>
+		    </tr>
+		    <tr>
+		    	<td>Apellido: </td>
+			   	<td>
+						<input required type="text" name="inputSurname" id="inputSurname" ng-model="userInfo.surname" placeholder="Usuario" ng-minlength="3" ng-maxlength="20"/>
+			   			<span class="text-danger" ng-show="profile_form.inputSurname.$error.required && (profile_form.inputSurname.$dirty || profile_form.inputSurname.$touched)">Introduzca un Usuario</span>
+						<span class="text-danger" ng-show="profile_form.inputSurname.$error.minlength">Introduzca mas de 3 caracteres</span>
+						<span class="text-danger" ng-show="profile_form.inputSurname.$error.maxlength">Introduzca menos de 20 caracteres</span>
+			   	</td>
+		    </tr>
+		    <tr>
+		    	<td>Fecha Nacimineto: </td>
+			   	<td>
+						<input required type="text" name="inputBirthday" id="inputBirthday" ng-model="userInfo.birthday" datepickerp="" placeholder="Fecha de nacimiento"/>
+			   	</td>
+		    </tr>
+		</table>
+		<button ng-click="editProfile(userInfo.IDuser)">Confirmar Cambios</button>
+	</form>
+</div><br/>
+
+<div id="list_dogs">
+	<div class='content_data_list' ng-show="cprofileV" ng-repeat="data in infoDogs| filter:filtro">
+		<div id='content_img' ng-click="open(data.chip)">
+			<img class='modalbutt' ng-src='{{data.picture}}'>
+		</div>
+		<div id='content_info'>
+			<div id='header_list'>
+				<span>Nombre: {{data.name}}</span><br>
+				<span> Raza: {{data.breed}}</span>
+			</div>
+		<div id='content_list'>
+			<span>Sexo: {{data.sex}}</span><br>
+			<span>Estatura: {{data.stature}}</span>
+		</div>
+		<div id='footer_list'>Nacimiento: {{data.date_birth}} </div>
+				<button id='dog_out' class='btn btn-danger' ng-click='concealDog(data.chip)' ng-show="{{data.state}} === 0">Ocultar</button>
+				<button style='background: none; border: none; color: white;' ng-show="{{data.state}} === 1">Adoptado</button>
+				<button id='dog_in' class='btn btn-success' ng-click="visibleDog(data.chip)" ng-show="{{data.state}} === 2">Hacer Visible</button>
+		</div>
+	</div>
+</div>
+
+<button ng-click="logoutB()">Cerrar sesion</button>

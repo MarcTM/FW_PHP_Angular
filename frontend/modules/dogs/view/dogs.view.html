@@ -1,0 +1,128 @@
+<div id="Container_dogs">	
+	<h1>Dogs</h1>
+	<form id="dogs_form" name="dogs_form" ng-show="formV">
+		<table>
+		    <tr>
+		       	<td>Nombre: </td>
+		       	<td>
+		       		<input required ng-model="dogs.inputName" name="inputName" type="text" id="inputName" placeholder="Nombre" ng-minlength="3" ng-maxlength="20"/>
+	       			<span class="text-danger" ng-show="dogs_form.inputName.$error.required && (dogs_form.inputName.$dirty || dogs_form.inputName.$touched)">Introduzca un nombre</span>
+	       			<span class="text-danger" ng-show="dogs_form.inputName.$error.minlength && (dogs_form.inputName.$dirty || dogs_form.inputName.$touched)">Introduzca entre de 3 y 20 caracteres</span>
+	       			<span class="text-danger" ng-show="dogs_form.inputName.$error.maxlength && (dogs_form.inputName.$dirty || dogs_form.inputName.$touched)">Introduzca menos de 20 caracteres</span>
+		      	</td>
+		    </tr>
+		    <tr>
+		       	<td>Chip: </td>
+		       	<td>
+		       		<input required ng-model="dogs.inputChip" name="inputChip" type="text" id="inputChip" placeholder="Chip" ng-pattern="/^[0-9]{6}[A-Z]{1}$/i"/>
+	       			<span class="text-danger" ng-show="dogs_form.inputChip.$error.required && (dogs_form.inputChip.$dirty || dogs_form.inputChip.$touched)">Introduzca un chip</span>
+	       			<span class="text-danger" ng-show="dogs_form.inputChip.$error.pattern">El formato del chip es incorrecto(123456A)</span>
+		      	</td>
+		    </tr>
+		    <tr>
+		       	<td>Raza: </td>
+		       	<td>
+		       		<input required ng-model="dogs.inputBreed" name="inputBreed" type="text" id="inputBreed" placeholder="Raza" ng-minlength="3" ng-maxlength="40"/>
+	       			<span class="text-danger" ng-show="dogs_form.inputBreed.$error.required && (dogs_form.inputBreed.$dirty || dogs_form.inputBreed.$touched)">Introduzca un nombre</span>
+	       			<span class="text-danger" ng-show="dogs_form.inputBreed.$error.minlength">Introduzca mas de 2 caracteres</span>
+	       			<span class="text-danger" ng-show="dogs_form.inputBreed.$error.maxlength">Introduzca menos de 41 caracteres</span>
+		      	</td>
+		    </tr>
+		    <tr>
+		       	<td>Teléfono: </td>
+		       	<td>
+		       		<input required ng-model="dogs.inputTlp" name="inputTlp" type="text" id="inputTlp" placeholder="Teléfono" ng-pattern="/^[9|6|7][0-9]{8}$/i"/>
+	       			<span class="text-danger" ng-show="dogs_form.inputTlp.$error.required && (dogs_form.inputTlp.$dirty || dogs_form.inputTlp.$touched)">Introduzca un teléfono</span>
+	       			<span class="text-danger" ng-show="dogs_form.inputTlp.$error.pattern">El formato del teléfono es incorrecto</span>
+		      	</td>
+		    </tr>
+		    <tr>
+	            <td>Sexo:</td>
+	            <td>
+			        Perro <input required="true" name="radioSex" id="radioSex" type="radio" ng-model="dogs.radioSex" value="perro">
+			        Perra <input name="radioSex" id="radioSex" type="radio" ng-model="dogs.radioSex" value="perra">
+			        <span class="text-danger" ng-show="dogs_form.radioSex.$error.required">Seleccione un campo</span>
+	            </td>
+	        </tr>
+	        <tr>
+	            <td>Estatura:</td>
+	            <td>
+			        Pequeña <input required="true" name="radioStature" id="radioStature" type="radio" ng-model="dogs.radioStature" value="pequeña">
+			        Mediana <input name="radioStature" id="radioStature" type="radio" ng-model="dogs.radioStature" value="mediana">
+			        Grande <input name="radioStature" id="radioStature" type="radio" ng-model="dogs.radioStature" value="grande">
+	            </td>
+	        </tr>
+	        <tr>
+	            <td>Provincia:</td>
+	            <td>
+	            	<select required name="provincia" id="provincia"  ng-options="item.nombre for item in provinces"
+                  	ng-model="dogs.selectProvincia" placeholder="Provincia" ng-change="changeProv()" ng-attrsize="5">
+                      <option value="" ng-show="showProv">Seleccione una provincia</option>
+                  </select>
+	            </td>
+	        </tr>
+	        <tr>
+	            <td>Ciudad:</td>
+	            <td>
+	            	<select required name="city" ng-model="dogs.selectCity" ng-options="item.poblacion for item in city" 
+	            	placeholder="Ciudad" id="poblacion" ng-disabled="selectProvincia.nombre > 0 ">
+                      <option value="" ng-show="showCity">Seleccione una ciudad</option>
+                  </select>
+	            </td>
+	        </tr>
+	        <tr>
+		   		<td>Fecha de Nacimiento: </td>
+		       	<td>
+			        <input require type="text" datepicker="" ng-model="dogs.inputBirthday" />
+		       	</td>
+		    </tr>
+	        <tr>
+		   		<td>Descripción: </td>
+		       	<td>
+		       		<textarea required ng-model="dogs.inputMessage" name="inputMessage" rows="4" cols="50" id="inputMessage" ng-minlength="20" ng-maxlength="100"></textarea>
+		       		<span class="text-danger" ng-show="dogs_form.inputMessage.$error.required && (dogs_form.inputMessage.$dirty || dogs_form.inputMessage.$touched)">Introduzca un mensaje</span>
+		       		<span class="text-danger" ng-show="dogs_form.inputMessage.$error.minlength">Introduzca mas de 20 caracteres</span>
+	       			<span class="text-danger" ng-show="dogs_form.inputMessage.$error.maxlength">Introduzca menos de 100 caracteres</span>
+		       	</td>
+		    </tr>
+		    <tr>
+		   		<td>Subir imagen: </td>
+		       	<td>
+		       		<div class="msg" ></div>
+			        <br/>
+			        <button required id="dropzone" dropzone="dropzoneConfig" class="dropzone"></button>
+		       	</td>
+		    </tr>
+		    <tr>
+		   		<td>
+		   			<input class="btn btn-primary" type="submit" id="submitBtn" name="submit" value="Send"
+	               ng-show="dogs_form.inputName.$valid && dogs_form.inputChip.$valid && dogs_form.inputBreed.$valid && dogs_form.inputTlp.$valid && dogs_form.inputMessage.$valid"
+	               ng-click="submitDogs()"/>
+	           </td>
+		    </tr>
+		</table>
+	</form>
+</div>
+
+<div id="list_dogs" ng-show="resultV">
+	<div class='content_data_list'>
+		<div id='content_img' >
+			<img class='modalbutt' ng-src="{{data_dog.dogpic}}">
+		</div>
+		<div id='content_info'>
+			<div id='header_list'>
+				<span>Nombre: {{data_dog.dname}}</span>
+				<br>
+				<span> Raza: {{data_dog.breed}} </span>
+			</div>
+			<div id='content_list'>
+				<span>Sexo: {{data_dog.sex}} </span>
+				<br>
+				<span> Estatura: {{data_dog.stature}} </span>
+			</div>
+			<div id='footer_list'>
+				<span>Nacimiento: {{data_dog.date_birth}} <span>
+			</div>
+		</div>
+	</div>
+</div>

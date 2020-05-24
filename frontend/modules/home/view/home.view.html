@@ -1,0 +1,50 @@
+<div id="content_home" style="text-align: center;">
+	<div style="width: 30%; display: inline-block;">
+		<form>
+			<h3 style="text-align: left;">Buscar por nombre</h3>
+			<input type="text" ng-model="nameSelected" placeholder="Buscar nombres" 
+			uib-typeahead="data as data.name for data in names | filter:{name:$viewValue} | limitTo:5" class="form-control">
+			<button id="authomeb" ng-click="selectSearch()">Buscar</button>	
+		</form>
+	</div>
+	<div id="list_dogs" >
+		<div class='content_data_list' ng-click="open(data.chip)" ng-repeat="data in dog| filter:filtro">
+			<div id='content_img' >
+				<img class='modalbutt' ng-src="{{data.picture}}">
+			</div>
+			<div id='content_info'>
+				<div id='header_list'>
+					<span>Nombre: {{data.name}}</span>
+					<br>
+					<span> Raza: {{data.breed}} </span>
+				</div>
+				<div id='content_list'>
+					<span>Sexo: {{data.sex}} </span>
+					<br>
+					<span> Estatura: {{data.stature}} </span>
+				</div>
+				<div id='footer_list'>
+					<span>Nacimiento: {{data.date_birth}} <span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br><br>
+	<div id="content_best_breeds">
+		<h3>Razas mas populares</h3>
+		<div id="best_breeds">
+				<div ng-repeat="data in breeds" class='best_breed_sel' ng-click="detailsBreed(data.breed)">
+					<a href='#/home/{{data.breed}}'>
+						<div class='best_breed_sel_img' style='background-image:url(http://localhost/1_Fw_PHP_OO_MVC_jQuery_AngularJS/AngularJS/4_adopt_dogs/frontend/assets/img/back_home{{$index + 1}}.jpg);'></div>
+						<div class='best_breed_sel_text'>
+							<span style="text-decoration: none; color: white;">{{data.breed}}</span>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+		<button id="click_scroll" ng-click="showMore()" style="text-align: center; display: inline-block;">Mostrar más</button>
+	</div>
+	
+</div>

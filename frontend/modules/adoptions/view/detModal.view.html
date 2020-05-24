@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="close()" data-dismiss="modal">&times;</button>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="list_dogis">
+        
+        <div id='content_img'>
+            <img id='modal_auto_details' ng-src='{{data.picture}}'>
+        </div>
+        <div id='content_info'>
+            <div id='header_list'>
+                <span>Nombre: {{data.name}}</span>
+                <span> Raza: {{data.breed}}</span>
+            </div>
+            <div id='content_list'>
+                <span>Sexo: {{data.sex}}</span>
+                <span> Estatura: {{data.stature}}</span>
+                <br>
+                <span>Ubicacion: {{data.province}}, {{data.city}}</span>
+                <br>
+                <span>Teléfono: {{data.tlp}}</span>
+                <br>
+                <span>Nacimiento: {{data.date_birth}} </span>
+            </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger" type="button" ng-click="close()">Close</button>
+</div>

@@ -1,0 +1,64 @@
+<div class="toplogin">
+
+  <div class="options1"><a id="login_html" href="#/login" data-tr="LOG IN">LOG IN</a>&nbsp;&nbsp;&nbsp;
+  <a id="register_html" href="#/register" data-tr="REGISTER">REGISTER</a><br><br>
+  <a id="cart" href="#/cart">Cart</a></div>
+
+  <div class="language">
+    <form>
+        <select name="idiom" id="idiom">
+            <option value="en" data-tr="English" id="btn-en">English</option>
+            <option value="es" data-tr="Spanish" id="btn-es">Spanish</option>
+            <option value="va" data-tr="Valencian" id="btn-va">Valencian</option>
+        </select>
+    </form>
+  </div>
+
+</div>
+
+
+<div class="navbar navbar-inverse navbar-static-top">
+
+  <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#/" data-tr="HOMEPAGE">HOMEPAGE</a>
+      </div>
+
+      <div class="navbar-collapse collapse" ng-controller="menuCtrl">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a id="localdel" href="#/shop" data-tr="SHOP">SHOP</a></li>
+          <li><a href="#/services" data-tr="SERVICES">SERVICES</a></li>
+		      <li><a href="#/aboutus" data-tr="MEET US">MEET US</a></li>
+          <li><a href="#/contact" data-tr="CONTACT">CONTACT US</a></li>
+          <div id="print_menu"></div>
+        </ul>
+      </div>
+  </div>
+
+</div>
+
+
+<div class="navbar navbar-inverse navbar-static-top cosarara">
+
+  <form class="search">
+    <div class="grr"> 
+      <select id="province">
+        <option value="">[Select province]</option>
+      </select>
+
+      <select id="shop">
+        <option value="">[Select shop]</option>
+      </select>
+    </div>
+
+    <div class="autocomplete"> 
+       <input id="autocom" type="text"/>
+       <div id="optionsauto"></div> 
+    </div>
+	
+    <div class="elbuscar">
+      <a id="searchlist">SEARCH</a>
+    </div>   
+  </form>
+
+</div>

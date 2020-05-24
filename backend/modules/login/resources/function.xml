@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+    <function>
+        <name>check_session</name>
+        <uri>check_session</uri>
+    </function>
+    <function>
+        <name>send_rec_mail</name>
+        <uri>send_rec_mail</uri>
+    </function>
+    <function>
+        <name>new_pass</name>
+        <uri>new_pass</uri>
+    </function>
+    <function>
+        <name>update_pass</name>
+        <uri>update_pass</uri>
+    </function>
+    <function>
+        <name>check_register</name>
+        <uri>check_register</uri>
+    </function>
+    <function>
+        <name>insert_user</name>
+        <uri>insert_user</uri>
+    </function>
+    <function>
+        <name>check_user_social</name>
+        <uri>check_user_social</uri>
+    </function>
+    <function>
+        <name>insert_user_social</name>
+        <uri>insert_user_social</uri>
+    </function>
+    <function>
+        <name>active_user</name>
+        <uri>active_user</uri>
+    </function>
+    <function>
+        <name>validate_login</name>
+        <uri>validate_login</uri>
+    </function>
+</functions>
