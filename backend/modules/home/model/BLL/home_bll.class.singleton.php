@@ -26,11 +26,11 @@
 		}
 
 		public function category(){
-			return $this->dao->select_category($this->db, $_GET['offset']);
+			return $this->dao->select_category($this->db, $_GET['param']);
 		}
 
 		public function cat_views(){
-			return $this->dao->update_views_cat($this->db, $_GET['cat']);
+			return $this->dao->update_views_cat($this->db, $_GET['param']);
 		}
 
 		public function count_prods(){
@@ -38,7 +38,7 @@
 		}
 
 		public function views(){
-			return $this->dao->select_views($this->db, $_GET['offset']);
+			return $this->dao->select_views($this->db, $_GET['param']);
 		}
 
 }

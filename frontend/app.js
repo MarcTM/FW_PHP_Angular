@@ -2,13 +2,17 @@ var marcangular = angular.module('marcangular', ['ngRoute', 'toastr', 'ui.bootst
 marcangular.config(['$routeProvider', '$locationProvider',
 function ($routeProvider, $locationProvider) {
         $routeProvider
+                // .when("/", {templateUrl: "frontend/modules/home/view/home.view.html", controller: "mainCtrl"})
                 .when("/", {templateUrl: "frontend/modules/home/view/home.view.html", controller: "mainCtrl",
                     resolve: {
-                        names: function (services) {
-                            return services.get('home','load_name');
+                        carousel: function (services) {
+                            return services.get('home','carousel');
                         },
-                        bbreeds: function (services) {
-                            return services.get('home','best_breed');
+                        categories: function (services) {
+                            return services.get('home','category',0);
+                        },
+                        more_visited: function (services) {
+                            return services.get('home','views',0);
                         }
                     }
                 })
@@ -37,6 +41,10 @@ function ($routeProvider, $locationProvider) {
                 // })
 
                 .when("/contact", {templateUrl: "frontend/modules/contact/view/contact.view.html", controller: "contactCtrl"})
+
+                .when("/services", {templateUrl: "frontend/modules/services/view/services.view.html", controller: "servicesCtrl"})
+
+                .when("/aboutus", {templateUrl: "frontend/modules/aboutus/view/aboutus.view.html", controller: "aboutusCtrl"})
 
                 // .when("/adoptions", {
                 //     templateUrl: "frontend/modules/adoptions/view/adoptions.view.html", 
