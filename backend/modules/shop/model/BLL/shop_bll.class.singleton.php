@@ -27,28 +27,15 @@
 		}
 
 		public function normalshop(){
-			return $this->dao->select_all_product($this->db, $_GET['offset']);
-		}
-
-		public function countcarousel(){
-			return $this->dao->countcarousel($this->db, $_GET['name']);
+			return $this->dao->select_all_product($this->db);
 		}
 
 		public function fromcarousel(){
-			return $this->dao->select_car($this->db, $_GET['name'], $_GET['offset']);
+			return $this->dao->select_car($this->db, $_GET['param']);
 		}
-
-		public function countcat(){
-			return $this->dao->countcat($this->db, $_GET['name']);
-		}
-
 
 		public function fromcat(){
-			return $this->dao->select_cat($this->db, $_GET['name'], $_GET['offset']);
-		}
-
-		public function countsearchbar(){
-			return $this->dao->countsearchbar($this->db, $_GET['province'], $_GET['shop'], $_GET['prod']);
+			return $this->dao->select_cat($this->db, $_GET['param']);
 		}
 
 		public function searchbar(){

@@ -1,4 +1,11 @@
 marcangular.controller('mainCtrl', function($scope,carousel,categories,more_visited,services,$uibModal,CommonService,toastr) {
+
+    // Shop
+    localStorage.removeItem('province');
+    localStorage.removeItem('shop');
+    localStorage.removeItem('val');
+    localStorage.removeItem('category');
+    localStorage.removeItem('carousel');
     
     //////////////
     // CAROUSEL
@@ -15,10 +22,9 @@ marcangular.controller('mainCtrl', function($scope,carousel,categories,more_visi
       localStorage.removeItem('category');
 
       var car = event.target.id;
-      console.log(car);
       localStorage.setItem('carousel', car);
 
-      // location.href = '#/shop';
+      location.href = '#/shop';
     }
 
 
@@ -73,11 +79,10 @@ marcangular.controller('mainCtrl', function($scope,carousel,categories,more_visi
 
       var cat = event.target.id;
       localStorage.setItem('category', cat);
-      console.log(cat);
 
       services.get('home','cat_views',cat);
 
-      // location.href = '#/shop';
+      location.href = '#/shop';
     }
 
 
@@ -125,24 +130,10 @@ marcangular.controller('mainCtrl', function($scope,carousel,categories,more_visi
     // Select product
     $scope.select_prod = function(event){
       var id = event.target.id;
-      console.log(id);
-
       localStorage.setItem('infoprod', id);
 
-      // location.href = '#/details';
+      location.href = '#/details';
     }
 
 
-
-    //////////////
-    // APIs
-    ////////////////
-    // services.get("https://www.googleapis.com/books/v1/volumes?q=nutrition").then(function(data){
-    //   console.log(data);
-    // })
-
-
-
-
-
-  });
+});

@@ -20,64 +20,31 @@ class shop_dao {
         return $db->listar_arr($stmt);
     }
 
-    public function countnormal($db) {
-        $sql = "SELECT COUNT(*) cuenta FROM products";
-        $stmt = $db->ejecutar($sql);
-        return $db->listar($stmt);
-    }
-
-    public function select_all_product($db, $offset) {
-        $sql = "SELECT * FROM products ORDER BY views DESC LIMIT 4 OFFSET $offset";
+    public function select_all_product($db) {
+        $sql = "SELECT * FROM products ORDER BY views DESC";
         $stmt = $db->ejecutar($sql);
         return $db->listar_arr($stmt);
     }
 
-     public function countcarousel($db, $car) {
+    public function select_car($db, $car) {
         if($car==='bcaas'){
-            $sql = "SELECT COUNT(*) cuenta FROM products WHERE product='Bcaa'";
+            $sql = "SELECT * FROM products WHERE product='Bcaa' ORDER BY views DESC";
         }else if($car==='packs'){
-            $sql = "SELECT COUNT(*) cuenta FROM products WHERE product='Vitamin'";
+            $sql = "SELECT * FROM products WHERE product='Vitamin' ORDER BY views DESC";
         }else if($car==='liquidacion'){
-            $sql = "SELECT COUNT(*) cuenta FROM products WHERE product='Mass_gainer'";
+            $sql = "SELECT * FROM products WHERE product='Mass_gainer' ORDER BY views DESC";
         }else if($car==='dto'){
-            $sql = "SELECT COUNT(*) cuenta FROM products WHERE product='Creatine'";
-        }
-
-        $stmt = $db->ejecutar($sql);
-        return $db->listar($stmt);
-    }
-
-    public function select_car($db, $car, $offset) {
-        if($car==='bcaas'){
-            $sql = "SELECT * FROM products WHERE product='Bcaa' ORDER BY views DESC LIMIT 4 OFFSET $offset";
-        }else if($car==='packs'){
-            $sql = "SELECT * FROM products WHERE product='Vitamin' ORDER BY views DESC LIMIT 4 OFFSET $offset";
-        }else if($car==='liquidacion'){
-            $sql = "SELECT * FROM products WHERE product='Mass_gainer' ORDER BY views DESC LIMIT 4 OFFSET $offset";
-        }else if($car==='dto'){
-            $sql = "SELECT * FROM products WHERE product='Creatine' ORDER BY views DESC LIMIT 4 OFFSET $offset";
+            $sql = "SELECT * FROM products WHERE product='Creatine' ORDER BY views DESC";
         }
 
         $stmt = $db->ejecutar($sql);
         return $db->listar_arr($stmt);
     }
 
-    public function countcat($db, $cat) {
-        $sql = "SELECT COUNT(*) cuenta FROM products WHERE product='$cat'";
-        $stmt = $db->ejecutar($sql);
-        return $db->listar($stmt);
-    }
-
-    public function select_cat($db, $cat, $offset) {
-        $sql = "SELECT * FROM products WHERE product='$cat' ORDER BY views DESC LIMIT 4 OFFSET $offset";
+    public function select_cat($db, $cat) {
+        $sql = "SELECT * FROM products WHERE product='$cat' ORDER BY views DESC";
         $stmt = $db->ejecutar($sql);
         return $db->listar_arr($stmt);
-    }
-
-    public function countsearchbar($db, $province, $shop, $product) {
-        $sql = "SELECT COUNT(*) cuenta FROM products p, shops s WHERE p.cod_shop = s.cod_shop AND s.city = '$province' AND s.name = '$shop' AND p.product = '$product'";
-        $stmt = $db->ejecutar($sql);
-        return $db->listar($stmt);
     }
 
     public function select_search($db, $province, $shop, $product, $offset) {

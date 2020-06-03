@@ -10,38 +10,18 @@
 			echo json_encode($json);
 		}
 
-		function countnormal(){
-			$json = loadModel(MODEL_SHOP, "shop_model", "countnormal");
-			echo json_encode($json);
-		}
-
 		function normalshop(){
 			$json = loadModel(MODEL_SHOP, "shop_model", "normalshop");
 			echo json_encode($json);
 		}
 		
-		function countcarousel(){
-			$json = loadModel(MODEL_SHOP, "shop_model", "countcarousel");
-			echo json_encode($json);
-		}
-
 		function fromcarousel(){
 			$json = loadModel(MODEL_SHOP, "shop_model", "fromcarousel");
 			echo json_encode($json);
 		}
 
-		function countcat(){
-			$json = loadModel(MODEL_SHOP, "shop_model", "countcat");
-			echo json_encode($json);
-		}
-
 		function fromcat(){
 			$json = loadModel(MODEL_SHOP, "shop_model", "fromcat");
-			echo json_encode($json);
-		}
-
-		function countsearchbar(){
-			$json = loadModel(MODEL_SHOP, "shop_model", "countsearchbar");
 			echo json_encode($json);
 		}
 

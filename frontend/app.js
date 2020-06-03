@@ -2,7 +2,6 @@ var marcangular = angular.module('marcangular', ['ngRoute', 'toastr', 'ui.bootst
 marcangular.config(['$routeProvider', '$locationProvider',
 function ($routeProvider, $locationProvider) {
         $routeProvider
-                // .when("/", {templateUrl: "frontend/modules/home/view/home.view.html", controller: "mainCtrl"})
                 .when("/", {templateUrl: "frontend/modules/home/view/home.view.html", controller: "mainCtrl",
                     resolve: {
                         carousel: function (services) {
@@ -14,6 +13,37 @@ function ($routeProvider, $locationProvider) {
                         more_visited: function (services) {
                             return services.get('home','views',0);
                         }
+                    }
+                })
+
+
+                .when("/shop", {templateUrl: "frontend/modules/shop/view/shop.view.html", controller: "shopCtrl",
+                    resolve: {
+                        shop_type: function (services) {
+                            var cat=localStorage.getItem('category');
+                            var province=localStorage.getItem('province');
+                            var car=localStorage.getItem('carousel');
+
+                            if (cat){
+                                return services.get('shop','fromcat',cat);
+                            }else if (province){
+                                return services.get('shop','normalshop');
+                            }else if (car){
+                                return services.get('shop','fromcarousel',car);
+                            }else{
+                                return services.get('shop','normalshop');
+                            }
+                        },
+                    }
+                })
+
+
+                .when("/details", {templateUrl: "frontend/modules/details/view/details.view.html", controller: "detailsCtrl",
+                    resolve: {
+                        details_id: function (services) {
+                            var id_details = localStorage.getItem("infoprod");
+                            return services.get('details','show_details',id_details);
+                        },
                     }
                 })
 
@@ -46,18 +76,6 @@ function ($routeProvider, $locationProvider) {
 
                 .when("/aboutus", {templateUrl: "frontend/modules/aboutus/view/aboutus.view.html", controller: "aboutusCtrl"})
 
-                // .when("/adoptions", {
-                //     templateUrl: "frontend/modules/adoptions/view/adoptions.view.html", 
-                //     controller: "adoptionsCtrl",
-                //     resolve: {
-                //         adoptions: function (services) {
-                //             return services.get('adoptions', 'load_list','%');
-                //         },
-                //         breeds: function (services) {
-                //             return services.get('adoptions', 'all_breeds');
-                //         }
-                //     }
-                // })
 
                 // .when("/ubication", {
                 //     templateUrl: "frontend/modules/ubication/view/ubication.view.html", 
@@ -101,4 +119,9 @@ function ($routeProvider, $locationProvider) {
                 // })
                 
                 .otherwise("/", {templateUrl: "frontend/modules/home/view/home.view.html", controller: "mainCtrl"});
-    }]);
+    }])
+    .filter('startsFrom', function(){
+        return function(data, start){
+            return data.slice(start);
+        }
+    })

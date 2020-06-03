@@ -81,9 +81,20 @@ p {
 .col-lg-4 {
   width: 23%;
   position:relative;
+  padding-bottom: 50px;
 }
 
 .col-lg-4:hover {
+  color: darkgoldenrod;
+}
+
+.col-lg-5 {
+  width: 20%;
+  position:relative;
+  padding-bottom: 50px;
+}
+
+.col-lg-5:hover {
   color: darkgoldenrod;
 }
 

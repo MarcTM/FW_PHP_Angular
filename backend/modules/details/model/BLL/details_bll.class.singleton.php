@@ -18,8 +18,8 @@
 
 
 		public function show_details(){
-			$this->dao->update_views($this->db, $_GET['id']);
-			return $this->dao->select_product($this->db, $_GET['id']);
+			$this->dao->update_views($this->db, $_GET['param']);
+			return $this->dao->select_product($this->db, $_GET['param']);
 		}
 
 	}
