@@ -17,8 +17,12 @@
 		}
 		
 
+		public function typeuser(){
+			return $this->dao->typeuser($this->db, $_GET['param']);
+		}
+
 		public function check_register(){
-			return $this->dao->check_existing_account($this->db, $_GET['email'], $_GET['user']);
+			return $this->dao->check_existing_account($this->db, $_GET['param']);
 		}
 
 		public function insert_user(){
@@ -53,7 +57,9 @@
 		}
 
 		public function update_pass(){
-			$this->dao->update_pass($this->db, $_SESSION['token'], $_POST['pass']);
+			$pass_data = json_decode($_POST['rec_pass'],true);
+
+			$this->dao->update_pass($this->db, $pass_data['token'], $pass_data['recpass']);
 		}
 		
 	}

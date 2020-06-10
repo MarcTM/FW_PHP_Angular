@@ -1,12 +1,5 @@
 marcangular.controller('contactCtrl', function($scope,services,toastr){
 
-    // Shop
-    localStorage.removeItem('province');
-    localStorage.removeItem('shop');
-    localStorage.removeItem('val');
-    localStorage.removeItem('category');
-    localStorage.removeItem('carousel');
-
     // Contact form
 	$scope.contact = {
         inputName: "",

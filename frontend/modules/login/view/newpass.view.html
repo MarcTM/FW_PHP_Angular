@@ -1,0 +1,37 @@
+<div class="newpass">
+
+    <h1>RECOVER YOUR PASSWORD</h1><br>
+    <p>Enter your new password here:</p><br>
+    
+    <form name="recpass_form" id="recpass_form">
+            <table id="tablenewpass">
+                <tr>
+                    <td>New password: </td>
+                    <td>
+                        <input required type="password" name="inputPassword" id="inputPassword" ng-model="recpass.inputPassword" placeholder="Password" ng-minlength="6" ng-maxlength="40"/>
+                        <span class="text-danger" ng-show="recpass_form.inputPassword.$error.required && (recpass_form.inputPassword.$dirty || recpass_form.inputPassword.$touched)">Introduce a password</span>
+                        <span class="text-danger" ng-show="recpass_form.inputPassword.$error.minlength">Minimum of 6 characters required</span>
+                        <span class="text-danger" ng-show="recpass_form.inputPassword.$error.maxlength">Maximum of 40 characters</span>
+                   </td>
+                </tr>
+                <tr>
+                    <td>Repeat password: </td>
+                    <td>
+                        <input required type="password" name="inputRPassword" id="inputRPassword" ng-model="recpass.inputRPassword" placeholder="RepRepeat password" ng-minlength="6" ng-maxlength="40"/>
+                        <span class="text-danger" ng-show="recpass_form.inputRPassword.$error.required && (recpass_form.inputRPassword.$dirty || recpass_form.inputRPassword.$touched)">Introduce a password</span>
+                        <span class="text-danger" ng-show="recpass_form.inputRPassword.$error.minlength">Minimun of 6 characters required</span>
+                        <span class="text-danger" ng-show="recpass_form.inputRPassword.$error.maxlength">Maximum of 40 characters</span>
+                        <span class="text-danger" ng-show="recpass.inputRPassword != recpass.inputPassword && (recpass_form.inputRPassword.$dirty || recpass_form.inputRPassword.$touched)">Passwords don't match</span>
+                   </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="btn btn-primary" type="button" id="sendNewpass" name="sendNewpass" value="Send"
+                        ng-show="recpass_form.inputPassword.$valid && recpass_form.inputRPassword.$valid && recpass.inputRPassword === recpass.inputPassword"
+                        ng-click="newPass()"/>
+                    </td>
+                </tr>
+            </table>
+    </form>
+    
+</div>

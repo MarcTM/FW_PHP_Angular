@@ -1,12 +1,5 @@
-marcangular.controller('mainCtrl', function($scope,carousel,categories,more_visited,services,$uibModal,CommonService,toastr) {
+marcangular.controller('mainCtrl', function($scope,carousel,categories,more_visited,services) {
 
-    // Shop
-    localStorage.removeItem('province');
-    localStorage.removeItem('shop');
-    localStorage.removeItem('val');
-    localStorage.removeItem('category');
-    localStorage.removeItem('carousel');
-    
     //////////////
     // CAROUSEL
     ////////////////
@@ -135,5 +128,34 @@ marcangular.controller('mainCtrl', function($scope,carousel,categories,more_visi
       location.href = '#/details';
     }
 
+
+});
+
+
+
+marcangular.controller('menuCtrl', function($scope,loginService,$timeout,$route) {
+
+  // Login
+  loginService.login();
+
+  // Logout
+  $scope.logout = function(){
+    $timeout( function(){
+      loginService.logout();
+      loginService.login();
+      location.href = '#/';  
+    }, 1000 );
+  }
+
+  // Go to normal shop
+  $scope.clickShop = function(){
+    localStorage.removeItem('province');
+    localStorage.removeItem('shop');
+    localStorage.removeItem('val');
+    localStorage.removeItem('category');
+    localStorage.removeItem('carousel');
+
+    $route.reload();
+  }
 
 });

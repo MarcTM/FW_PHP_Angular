@@ -1,34 +1,43 @@
-ohanadogs.factory("loginService", ['$location', '$rootScope', 'services','localstorageService','socialService',
-function ($location, $rootScope, services,localstorageService, socialService) {
+marcangular.factory("loginService", ['$location', '$rootScope', 'services',
+function ($location, $rootScope, services) {
 	var service = {};
 	service.login = login;
 	service.logout = logout;
     return service;
 
     function login() {
-    	var token = localstorageService.getUsers();
-        if (token) {
+    	var token = localStorage.getItem('id_token');
+        if (token){
+            $rootScope.userNotLoged = false;
+            $rootScope.userLoged = true; 
             services.get('login', 'typeuser',token).then(function (response) {
-                if (response.type === "user") {
-                    $rootScope.loginV = false;
-                    $rootScope.profileV = true;
-                    $rootScope.ubicaV = true;
-                    $rootScope.dogsV = true;
-	            } else if (response.type === "admin") {
-                    $rootScope.loginV = false;
-                    $rootScope.profileV = true;
-                    $rootScope.ubicaV = true;
-                    $rootScope.dogsV = true;
+                if(response.type === "user"){
+                    $rootScope.showHome = true;
+                    $rootScope.showShop = true;
+                    $rootScope.showServices = true;
+                    $rootScope.showAboutus = true;
+                    $rootScope.showContact = true;
 	            }else{
-                    $rootScope.loginV = true;
-                }
+                    $rootScope.showHome = true;
+                    $rootScope.showShop = true;
+                    $rootScope.showServices = true;
+                    $rootScope.showAboutus = true;
+                    $rootScope.showContact = true;
+	            }
             });
-        } else {
-            $rootScope.loginV = true;
+        }else{
+            $rootScope.userNotLoged = true;
+            $rootScope.userLoged = false;
+            
+            $rootScope.showHome = true;
+            $rootScope.showShop = true;
+            $rootScope.showServices = true;
+            $rootScope.showAboutus = true;
+            $rootScope.showContact = true;
         }
     }
 
     function logout() {
-    	localstorageService.clearUsers();
+        localStorage.removeItem('id_token');
     }
 }]);

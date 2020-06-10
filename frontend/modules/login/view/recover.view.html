@@ -1,0 +1,24 @@
+<div class="recpage">
+
+    <h1>DID YOU FORGET YOUR PASSWORD?</h1><br>
+    <h3>RECOVER YOUR PASSWORD</h3>
+    <p>Introduce your email account. In a while, you will receive an email with a link to recover your password.</p><br>
+    
+    <form method="post" name="recover_form" id="recover_form">
+            <table id="tablerecpage">
+                <tr>
+                    <td>Email: </td>
+                    <td>
+                        <input required type="email" name="inputEmail" id="inputEmail" ng-model="recover.inputEmail" placeholder="Email"/>
+                        <span class="text-danger" ng-show="recover_form.inputEmail.$error.required && (recover_form.inputEmail.$dirty || recover_form.inputEmail.$touched)">Introduce an email</span>
+                        <span class="text-danger" ng-show="recover_form.inputEmail.$error.email">Email not valid</span>
+                    </td>
+                </tr>
+                <hr/><br><br>
+                <tr>
+                    <td><input type="button" name="rec" id="rec" value="SEND" ng-click="recover_password()"/></td>
+                </tr>
+            </table>
+    </form>
+    
+    </div>

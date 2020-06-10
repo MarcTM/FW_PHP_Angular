@@ -14,8 +14,14 @@
         }
 
 
-        public function check_existing_account($db, $email, $user) {
-            $sql = "SELECT * FROM users WHERE email = '$email' AND user = '$user' AND password != ''";
+        public function typeuser($db, $token) {
+            $sql = "SELECT type FROM users WHERE token = '$token'";
+            $stmt = $db->ejecutar($sql);
+            return $db->listar($stmt);
+        }
+
+        public function check_existing_account($db, $email) {
+            $sql = "SELECT * FROM users WHERE email = '$email' AND password != ''";
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
         }
@@ -26,7 +32,7 @@
             $password = password_hash($data['pass'], PASSWORD_DEFAULT);
             // $token = md5(uniqid(rand(),true));
             $token = bin2hex(openssl_random_pseudo_bytes(20));
-            $avatar = 'view/assets/img/avatars/default.jpg';
+            $avatar = 'frontend/assets/img/avatars/default.jpg';
 
             $sql = "INSERT INTO users(IDuser,user,email,password,type,avatar,activate,token) VALUES('$user','$user','$email','$password','user','$avatar',0,'$token')";
             $db->ejecutar($sql);
@@ -59,9 +65,6 @@
         public function active_user($db, $param) {
             $sql = "UPDATE users SET activate = 1 WHERE token = '$param' AND activate = 0";
             $db->ejecutar($sql);
-
-            // $sql = "UPDATE users SET token = '' WHERE token = '$param'";
-            // $db->ejecutar($sql);
         }
 
         public function validate_login($db, $cred) {
@@ -83,9 +86,10 @@
                     return "not activated";
                 }else{
                     if (password_verify($pass,$result[0]['password'])) {
-                        $_SESSION['user'] = $result[0]['user'];
-                        $_SESSION['avatar'] = $result[0]['avatar'];
-                        return encode_token($result[0]['IDuser']);
+                        $token = encode_token($result[0]['IDuser']);
+                        $sql = "UPDATE users SET token = '$token' WHERE email = '$email' and password !=''";
+                        $stmt = $db->ejecutar($sql);
+                        return $token;
                     }else{
                         return "incorrect";
                     }

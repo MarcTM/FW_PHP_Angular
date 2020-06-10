@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <functions>
     <function>
-        <name>check_session</name>
-        <uri>check_session</uri>
+        <name>typeuser</name>
+        <uri>typeuser</uri>
     </function>
     <function>
         <name>send_rec_mail</name>

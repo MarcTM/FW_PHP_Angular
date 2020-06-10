@@ -1,76 +1,65 @@
-ohanadogs.factory("socialService", ['$rootScope', 'services','localstorageService','toastr','$timeout',
-function ($rootScope, services, localstorageService, toastr, $timeout) {
+marcangular.factory("socialService", ['$rootScope', 'services','toastr','$timeout',
+function ($rootScope, services, toastr, $timeout) {
+
 	var service = {};
 	service.initialize = initialize;
-	service.insertData = insertData;
     return service;
 
     function initialize() {
         var config = {
-            apiKey: "AIzaSyCr9CQIJ6QikNWaM1UveNjwugyqWKUIxy0",
-            authDomain: "test-php-js.firebaseapp.com",
-            databaseURL: "https://test-php-js.firebaseio.com",
-            projectId: "test-php-js",
-            storageBucket: "",
-            messagingSenderId: "613764177727"
+            apiKey: apikey_firebase,
+            authDomain: "social-login-d7b12.firebaseapp.com",
+            databaseURL: "https://social-login-d7b12.firebaseio.com",
+            projectId: "social-login-d7b12",
+            storageBucket: "social-login-d7b12.appspot.com",
+            messagingSenderId: "580198600095"
         };
+         
         firebase.initializeApp(config);
     };
 
-    function insertData(user,name,email,avatar){
-        var sname = name.split(' ');
-        var name = sname[0];
-        var surname = sname[1];
-        services.post('login','log_social',
-        {'data_social_net':JSON.stringify({'id_user':user,'user':user,'name':name,'surname':surname,email:email,'avatar':avatar})})
-        .then(function(response){
-    		localstorageService.setUsers(JSON.parse(response));
-    		toastr.success('Inicio de sesion correcto', 'Perfecto',{
-                closeButton: true
-            });
-            $timeout( function(){
-	            location.href = '.';
-	        }, 3000 );
-    	});
-    }
 }]);
 
-ohanadogs.factory("GitHubService", ['$rootScope', 'services','socialService', 'toastr', '$timeout',
-function ($rootScope, services, socialService, toastr, $timeout) {
+
+
+marcangular.factory("GitHubService", ['$rootScope','services','toastr','$timeout','toastr','$timeout','loginService',
+function ($rootScope,services,toastr,$timeout,loginService) {
+
 	var service = {};
 	service.login = login;
     return service;
 
     function login() {
-    	var provider = new firebase.auth.GithubAuthProvider();
+        var provider = new firebase.auth.GithubAuthProvider();
         var authService = firebase.auth();
 
-        authService.signInWithPopup(provider).then(function(result) {
-            //socialService.insertData(result.user.uid,result.user.displayName,result.user.email,result.user.photoURL);
-        })
-        .catch(function(error) {
-            var errorCode = error.code;
-            console.log(errorCode);
-            var errorMessage = error.message;
-            console.log(errorMessage);
-            var email = error.email;
-            console.log(email);
-            var credential = error.credential;
-            console.log(credential);
-
-            toastr.error('Inicio de sesion incorrecto', 'Error',{
-                closeButton: true
-            });
-            $timeout( function(){
-	            location.href = '.';
-	        }, 3000 )
-        });
+        authService.signInWithPopup(provider)
+        .then(function(result) {
+			services.post('login','check_user_social',{'user':result.additionalUserInfo.username, 'email':result.user.email, 'avatar':result.user.photoURL, 'iduser':result.additionalUserInfo.username}).then(function (user) {
+				if(user==="no"){
+					services.post('login','insert_user_social',{'user':result.additionalUserInfo.username, 'email':result.user.email, 'avatar':result.user.photoURL, 'iduser':result.additionalUserInfo.username}).then(function (data) {
+						localStorage.setItem('id_token', data);
+						location.href = '#/';
+					});
+				}else{
+					localStorage.setItem('id_token', user.token);
+					toastr.success("You have successfully loged in", "LOGGING IN");
+					$timeout( function(){
+						loginService.login();
+						location.href = '#/';
+					}, 2000 );
+				}
+			});
+		});
     };
 
 }]);
 
-ohanadogs.factory("googleService", ['$rootScope', 'services','socialService',
-function ($rootScope, services,socialService) {
+
+
+marcangular.factory("googleService", ['$rootScope','services','toastr','$timeout','loginService',
+function ($rootScope,services,toastr,$timeout,loginService) {
+
 	var service = {};
 	service.login = login;
     return service;
@@ -80,12 +69,24 @@ function ($rootScope, services,socialService) {
         provider.addScope('email');
         var authService = firebase.auth();
 
-        authService.signInWithPopup(provider).then(function(result) {
-            socialService.insertData(result.user.uid,result.user.displayName,result.user.email,result.user.photoURL);
-        })
-        .catch(function(error) {
-            console.log('Se ha encontrado un error:', error);
-        });
+        authService.signInWithPopup(provider)
+        .then(function(result) {
+			services.post('login','check_user_social',{'user':result.user.displayName, 'avatar':result.user.photoURL, 'iduser':result.user.uid}).then(function (user) {
+				if(user==="no"){
+					services.post('login','insert_user_social',{'user':result.user.displayName, 'email':result.user.email, 'avatar':result.user.photoURL, 'iduser':result.user.uid}).then(function (data) {
+						localStorage.setItem('id_token', data);
+						location.href = '#/';
+					});
+				}else{
+					localStorage.setItem('id_token', user.token);
+					toastr.success("You have successfully loged in", "LOGGING IN");
+					$timeout( function(){
+						loginService.login();
+						location.href = '#/';
+					}, 2000 );
+				}
+			});
+		});
     };
 
 }]);

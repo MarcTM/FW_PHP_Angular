@@ -15,6 +15,10 @@ class login_model {
     }
 
 
+    public function typeuser(){
+        return $this->bll->typeuser();
+    }
+
     public function check_register(){
         return $this->bll->check_register();
     }

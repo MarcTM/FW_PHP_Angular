@@ -1,284 +1,104 @@
-ohanadogs.controller('loginCtrl', function($scope,services,toastr,$timeout,localstorageService,
-	loginService,socialService,GitHubService,googleService,$rootScope) {
-	$scope.recpassV = false;
-	$scope.butpassV = true;
-	if (!$rootScope.cont) {
-		$rootScope.cont=0;
-	}
-	if ($rootScope.cont === 0) {
-		socialService.initialize();
-		$rootScope.cont=1;
-	}
+// LOGIN CONTROLLER
+marcangular.controller('loginCtrl', function($scope,services,toastr,$timeout,loginService,socialService,GitHubService,googleService) {
 
-	$scope.submitLogin = function(){
-		services.put('login','validate_login',
-		{'total_data':JSON.stringify({'luser':$scope.login.inputUser,'lpasswd':$scope.login.inputPassword})})
-		.then(function (response) {
-			if (response.success) {
-					localstorageService.setUsers(response.tokenlog);
-					toastr.success('Inicio de sesion correcto', 'Perfecto',{
-                    closeButton: true
-                });
-                $timeout( function(){
-                	loginService.login();
-		            location.href = '.';
-		        }, 3000 );
-			}else{
-				if (response.error.luser) {
-					toastr.error(response.error.luser, 'Error',{
-	                	closeButton: true
-	            	});
-				}else if(response.error.lpasswd){
-					toastr.error(response.error.lpasswd, 'Error',{
-	                	closeButton: true
-	            	});
-				}else{
-					toastr.error('Error', 'Error',{
-	                	closeButton: true
-	            	});
-				}
-			}
-		});
-	};
+	// Initialize firebase
+	socialService.initialize();
 	
-	$scope.submitRegister = function(){
-		var data = {'ruser':$scope.register.inputUser,'remail':$scope.register.inputEmail,'rpasswd':$scope.register.inputPassword};
-		services.post('login','validate_register',{'total_data':JSON.stringify(data)}).then(function (response) {
-			if (response.success) {
-					toastr.success('Revisa tu correo electronico', 'Perfecto',{
-                    closeButton: true
-                });
-                $timeout( function(){
-		            location.href = '#/';
-		        }, 3000 );
-			}else{
-				toastr.error(response.error.ruser, 'Error',{
-                	closeButton: true
-            	});
-			}
-		});
-	}
-	
-	$scope.showRpass = function(){
-		$scope.butpassV = false;
-		$scope.recpassV = true;
-	}
-	
-	$scope.recPass = function(){
-		var user = $scope.recover.inputUser
-		services.post('login','send_mail_rec',{'rpuser':JSON.stringify(user)}).then(function (response) {
-			if (response.success) {
-				toastr.success('Revisa tu correo electronico', 'Perfecto',{
-                    closeButton: true
-                });
-                $timeout( function(){
-		            location.href = '#/';
-		        }, 3000 );
-			}else{
-				toastr.error(response.error.rpuser, 'Error',{
-                	closeButton: true
-            	});
-			}
-		});
-	}
-	
-	$scope.logGoogle = function(){
+	// Google login
+	$scope.login_google = function(){
 		googleService.login();
-	};
-	
-	$scope.logGitHub = function(){
+	}
+
+	// GitHub login
+	$scope.login_github = function(){
 		GitHubService.login();
-	};
-});
+	}
 
-ohanadogs.controller('changepassCtrl', function($scope,services,$route,toastr,$timeout) {
-	$scope.submitRecPass = function(){
-		services.put('login','update_passwd',
-		{'rec_pass':JSON.stringify({'recpass':$scope.recpass.inputPassword,'token':$route.current.params.token})})
-		.then(function (response) {
-			if (response) {
-					toastr.success('Contraseña cambiada correctamente', 'Perfecto',{
-                    closeButton: true
-                });
-                $timeout( function(){
-		            location.href = '#/';
-		        }, 3000 );
+	// Normal login
+	$scope.validate_login = function(){
+		var data = {'email':$scope.login.inputEmail, 'pass':$scope.login.inputPassword};
+
+		services.post('login','validate_login',{'credentials':JSON.stringify(data)}).then(function (cred) {
+			if(cred==="not exists"){
+				toastr.error("Your email or password is incorrect", "INCORRECT CREDENTIALS");
+			}else if(cred==="not activated"){
+				toastr.info("Check your email to activate your account", "CHECK YOUR EMAIL");
+			}else if(cred==="incorrect"){
+				toastr.error("Your email or password is incorrect", "INCORRECT CREDENTIALS");
 			}else{
-				toastr.error('Error al cambiar la contraseña', 'Error',{
-                	closeButton: true
-            	});
+				localStorage.setItem('id_token', cred);
+				toastr.success("You have successfully loged in", "LOGGING IN");
+				$timeout( function(){
+					loginService.login();
+					location.href = '#/';
+				}, 2000 );
 			}
 		});
 	}
-});
-
-ohanadogs.controller('profileCtrl', function($scope,services,toastr,loginService,$timeout,infoUser,CommonService,$uibModal) {
-	$scope.sprofV = true;
-	$scope.eprofV = false;
-	$scope.cprofileV = false;
-	$scope.avatar = infoUser[0].avatar;
-	$scope.userInfo = infoUser[0];
 	
-	$scope.showSprof = function(){
-		$scope.sprofV = true;
-		$scope.eprofV = false;
-		$scope.cprofileV = false;
-	}
-	$scope.showEprof = function(){
-		$scope.sprofV = false;
-		$scope.eprofV = true;
-		$scope.cprofileV = false;
-	}
-	$scope.showCdogs = function(){
-		$scope.sprofV = false;
-		$scope.eprofV = false;
-		$scope.cprofileV = true;
-		$scope.infoDogs = infoUser.dog;
-	}
-	$scope.showAdogs = function(){
-		$scope.sprofV = false;
-		$scope.eprofV = false;
-		$scope.cprofileV = true;
-		$scope.infoDogs = infoUser.adoptions;
-	}
-	$scope.logoutB = function(){
-		loginService.logout();
-		toastr.success('', 'Cerrando Sesion',{
-            closeButton: true
-        });
-        $timeout( function(){
-            location.href = '.';
-        }, 2000 );
-	}
-
-	$scope.editProfile = function (user) {
-		services.put('login','update_profile',
-		{'prof_data':JSON.stringify({'pname':$scope.userInfo.name,'psurname':$scope.userInfo.surname,'pbirthday':$scope.userInfo.birthday,'user':user})})
-		.then(function (response) {
-			if (response.success) {
-				toastr.success('Cambios guardados correctamente', 'Perfecto',{
-                    closeButton: true
-                });
-                $scope.sprofV = true;
-				$scope.eprofV = false;
-				$scope.cprofileV = false;
-			}else{
-				if (response.error.pbirthday) {
-					toastr.error(response.error.pbirthday, 'Error',{
-	                	closeButton: true
-	            	});
-				}else{
-					toastr.error('Error', 'Error',{
-	                	closeButton: true
-	            	});
-				}
-			}
-		});
-    };
-    
-	$scope.open = function (chip) {
-        CommonService.openModal(chip,'login','details_list');
-    };
-    
-    $scope.openDrop = function (user) {
-        var modalInstance = $uibModal.open({
-	        animation: 'true',
-	        templateUrl: 'frontend/modules/login/view/dropModal.view.html',
-	        controller: 'dropModalCtrl',
-	        windowClass : 'show',
-	        size: "lg",
-	        resolve: {
-                   iduser: function () {
-                        return user;
-                    }
-                }
-	    });
-    };
-    
-    $scope.concealDog = function (chip) {
-    	services.put('login','conceal_dog',{'chip':chip}).then(function (response) {
-    		if (response === '1') {
-				toastr.success('Perro ocultado correctamente', 'Correcto',{
-                	closeButton: true
-            	});
-            	$timeout( function(){
-		            location.href = '#/';
-		            location.href = '#/profile';
-		        }, 1500 );
-			}else{
-				toastr.error('Error', 'Error',{
-                	closeButton: true
-            	});
-			}
-    	});
-    };
-    
-    $scope.visibleDog = function (chip) {
-    	services.put('login','visible_dog',{'chip':chip}).then(function (response) {
-    		if (response === '1') {
-				toastr.success('Perro visible', 'Correcto',{
-                	closeButton: true
-            	});
-            	$timeout( function(){
-		            location.href = '#/';
-		            location.href = '#/profile';
-		        }, 1500 );
-			}else{
-				toastr.error('Error', 'Error',{
-                	closeButton: true
-            	});
-			}
-    	});
-    };
 });
 
-ohanadogs.controller('dropModalCtrl', function($scope,services,toastr,$uibModalInstance,$timeout,localstorageService,iduser) {
-	$scope.dropzoneConfig = {
-        'options': {
-            'url': 'backend/index.php?module=login&function=upload_avatar',
-            addRemoveLinks: true,
-            maxFileSize: 1000,
-            dictResponseError: "Ha ocurrido un error en el server",
-            acceptedFiles: 'image/*,.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF,.rar,application/pdf,.psd'
-        },
-        'eventHandlers': {
-            'sending': function (file, formData, xhr) {},
-            'success': function (file, response) {
-                response = JSON.parse(response);
-                if (response.result) {
-                    $(".msg").addClass('msg_ok').removeClass('msg_error').text('Success Upload image!!');
-                    $('.msg').animate({'right': '300px'}, 300);
-                } else {
-                    $(".msg").addClass('msg_error').removeClass('msg_ok').text(response['error']);
-                    $('.msg').animate({'right': '300px'}, 300);
-                }
-            },
-            'removedfile': function (file, serverFileName) {
-                if (file.xhr.response) {
-                    $('.msg').text('').removeClass('msg_ok');
-                    $('.msg').text('').removeClass('msg_error');
-                    var data = jQuery.parseJSON(file.xhr.response);
-                    services.post("login", "delete_avatar", JSON.stringify({'filename': data.data}));
-                }
-            }
-	}};
 
-	$scope.saveAvatar = function () {
-		services.put('login','modify_avatar',{'auser':iduser}).then(function (response) {
-			if (response === '1') {
-				toastr.success('Cambios guardados correctamente', 'Perfecto',{
-                    closeButton: true
-                });
-                $uibModalInstance.dismiss('cancel');
-                $timeout( function(){
-		            location.href = '#/';
-		            location.href = '#/profile';
-		        }, 1500 );
+
+// REGISTER CONTROLLER
+marcangular.controller('registerCtrl', function($scope,services,toastr,$timeout) {
+
+	$scope.validate_register = function(){
+		services.get('login','check_register',$scope.register.inputEmail,$scope.register.inputUser).then(function (data) {
+			if (data==="false"){
+				var data = {'email':$scope.register.inputEmail, 'user':$scope.register.inputUser, 'pass':$scope.register.inputPassword};
+
+				services.post('login','insert_user',{'data':JSON.stringify(data)});
+
+				toastr.success('You have received an email, go and activate your account', 'CHECK YOUR EMAIL',{
+					closeButton: true
+				});
+				$timeout( function(){
+					location.href = '#/login';
+				}, 3000 );
+			}else{
+				toastr.warning('This account already exists', 'ACCOUNT EXISTS',{
+					closeButton: true
+				});	
 			}
 		});
-    };
-    
-	$scope.close = function () {
-        $uibModalInstance.dismiss('cancel');
-    };
+	}
+
+});
+
+
+
+// RECOVER PASSWORD CONTROLLER
+marcangular.controller('recoverCtrl', function($scope,services,toastr) {
+
+	$scope.recover_password = function(){
+		services.put('login','send_rec_mail',{'email':$scope.recover.inputEmail}).then(function (data) {
+			console.log(data);
+			if(data==="no"){
+				toastr.error("This mail is not registered","ERROR");
+			}else{
+				toastr.info("Check your email to change your password", "CHECK YOUR EMAIL");
+			}
+		});
+	}
+
+});
+
+
+
+// NEW PASSWORD CONTROLLER
+marcangular.controller('newpassCtrl', function($route,$scope,services,toastr,$timeout) {
+
+	console.log($route.current.params.token);
+
+	$scope.newPass = function(){
+		services.put('login','update_pass',{'rec_pass':JSON.stringify({'recpass':$scope.recpass.inputPassword,'token':$route.current.params.token})}).then(function () {
+			toastr.success("Password changed", "NEW PASSWORD");
+
+			$timeout( function(){
+				location.href = '#/login';
+			}, 2000 );
+		});
+	}
+
 });

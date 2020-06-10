@@ -8,16 +8,19 @@
 </div>
 
 
+
 <!-- CATEGORIES -->
 <div class="ali"><h1>CATEGORIES</h1></div>
 <div class="container pt categories">
   <div class="row mt centered cate">
 		<div class="bx-controls-direction">
 			<a class="prev" ng-click="prev()">Prev</a> | <a class="next" ng-click="next()">Next</a>
-		</div><br><br>
+			<br><br>
+		</div>
 		<div class="col-lg-4" ng-repeat="category in categories"><img class="img-responsive" id="{{category.id}}" src="{{category.url}}" ng-click="select_cat($event)"/><p><b>{{category.cat}}</b></p></div>
   </div>
 </div>
+
 
 
 <!-- MOST VIEWS -->

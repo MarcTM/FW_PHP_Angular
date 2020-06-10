@@ -1,5 +1,5 @@
-var el = document.getElementById("print_menu");
+// var el = document.getElementById("print_menu");
 
-el.addEventListener('click', function(){
-    alert("POlls");
-})
+// el.addEventListener('click', function(){
+//     alert("tienda");
+// })

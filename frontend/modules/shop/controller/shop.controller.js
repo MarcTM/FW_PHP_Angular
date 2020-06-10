@@ -1,18 +1,27 @@
-marcangular.controller('shopCtrl', function($scope,services,shop_type,$uibModal,CommonService,toastr) {
+marcangular.controller('shopCtrl', function($scope,shop_type) {
 
-    // Shop
-    $scope.pageSize = 5;
-    $scope.currentPage = 1;
-    $scope.products = shop_type;
+    if(shop_type.length>0){
 
-    // if(shop_type.length===0){
-    //     console.log("no");
-    //     $scope.searchResult = "true";
-    // }else{
-    //     console.log("si");
-    //     $scope.searchResult = "false";
-    //     $scope.products = shop_type;
-    // }
+        $scope.yesShop = true;
+        $scope.noShop = false;
+        
+        if(shop_type.length<6){
+            $scope.showPag = false;
+            $scope.products = shop_type;
+        }else{
+            $scope.showPag = true;
+            $scope.pageSize = 5;
+            $scope.currentPage = 1;
+            $scope.products = shop_type;
+        }
+
+    }else{
+
+        $scope.yesShop = false;
+        $scope.noShop = true;
+        $scope.showPag = false;
+
+    }
     
 
 

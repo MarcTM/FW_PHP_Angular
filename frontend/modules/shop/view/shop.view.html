@@ -4,9 +4,9 @@
 
     <div class="container pt">
         <div class="row mt centered prods" id="inicioshop">
-            <div ng-show="searchResult"><h3>Su búsqueda no dió resultados.</h3></div>
-            <div class="col-lg-5" ng-repeat="product in products | startsFrom: (currentPage - 1) * pageSize | limitTo: pageSize"><img class="img-responsive" ng-click="select_product($event)" id="{{product.idproduct}}" src="{{product.img}}"/><img id="{{product.idproduct]]" class="favorites" src="frontend/assets/img/favorites/corazonblanco.png"/><p>{{product.product}} - {{product.kg}}KG<br>{{product.brand}}<br>{{product.price}}€</p><input type="button" class="addtocart" name="addtocart" id="{{product.idproduct}}" value="ADD TO CART"/></div>
+            <div ng-show="noShop"><h3>Sorry, no results were found for your search.</h3></div>
+            <div ng-show="yesShop" class="col-lg-5" ng-repeat="product in products | startsFrom: (currentPage - 1) * pageSize | limitTo: pageSize"><img class="img-responsive" ng-click="select_product($event)" id="{{product.idproduct}}" src="{{product.img}}"/><img id="{{product.idproduct]]" class="favorites" src="frontend/assets/img/favorites/corazonblanco.png"/><p>{{product.product}} - {{product.kg}}KG<br>{{product.brand}}<br>{{product.price}}€</p><input type="button" class="addtocart" name="addtocart" id="{{product.idproduct}}" value="ADD TO CART"/></div>
         </div>
-        <span class="pagination" uib-pagination total-items="products.length" ng-model="currentPage" items-per-page="pageSize"/>
+        <span ng-show="showPag" class="pagination" uib-pagination total-items="products.length" ng-model="currentPage" items-per-page="pageSize"/>
     </div>
 </div>

@@ -72,7 +72,6 @@ marcangular.factory("services", ['$http','$q', function ($http, $q) {
                 url: serviceBase + module + '&function=' + functi,
                 data: dada
             }).success(function(data, status, headers, config) {
-      	       console.log(serviceBase + module + '&function=' + functi);
               //debugger;
                defered.resolve(data);
             }).error(function(data, status, headers, config) {

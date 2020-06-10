@@ -65,10 +65,13 @@ function send_mailgun($arr){
  curl_close($ch);
 }
 
+
+
 function send_mail_recover($arr){
   $apikey = mailgun::apikey_mailgun();
   $apiurl = mailgun::apibase_url();
-  $ruta = '<a href="' . amigable("?module=login&function=new_pass&param=" . $arr['token'], true) . '">aqu&iacute;</a>';
+  $token = $arr['token'];
+  $ruta = '<a href="http://localhost/FW_PHP_Angular_Marc/#/recover_pass/' . $token . '">aqu&iacute;</a>';
 
   $config = array();
   $config['api_key'] = $apikey; //API Key

@@ -1,101 +1,44 @@
-<div id="all_content_login">
-	<div id="content_login">
-		<h3>Login</h3>
-		<form id="login_form" name="login_form">
-			<table>
-			    <tr>
-			       	<td>Usuario: </td>
-			       	<td>
-		       			<input required type="text" name="inputUserl" id="inputUserl" ng-model="login.inputUser" placeholder="Usuario" ng-minlength="3" ng-maxlength="20"/>
-			       		<span class="text-danger" ng-show="login_form.inputUserl.$error.required && (login_form.inputUserl.$dirty || login_form.inputUserl.$touched)">Introduzca un nombre</span>
-	       				<span class="text-danger" ng-show="login_form.inputUserl.$error.minlength">Introduzca mas de 3 caracteres</span>
-	       				<span class="text-danger" ng-show="login_form.inputUserl.$error.maxlength">Introduzca menos de 20 caracteres</span>
-			       	</td>
-			    </tr>
-			    <tr>
-			       	<td>Contraseña: </td>
-			       	<td>
-			       		<input required type="password" name="inputPasswordl" id="inputPasswordl" ng-model="login.inputPassword" placeholder="Contraseña" ng-minlength="6" ng-maxlength="40"/>
-			       		<span class="text-danger" ng-show="login_form.inputPasswordl.$error.required && (login_form.inputPasswordl.$dirty || login_form.inputPasswordl.$touched)">Introduzca un contraseña</span>
-	       				<span class="text-danger" ng-show="login_form.inputPasswordl.$error.minlength">Introduzca mas de 6 caracteres</span>
-	       				<span class="text-danger" ng-show="login_form.inputPasswordl.$error.maxlength">Introduzca menos de 40 caracteres</span>
-			      	</td>
-			    </tr>
-			    <tr>
-			   		<td>
-			   			<input class="btn btn-primary" type="submit" id="sendLogin" name="sendLogin" value="Iniciar sesion"
-		               ng-show="login_form.inputUserl.$valid && login_form.inputPasswordl.$valid"
-		               ng-click="submitLogin()"/>
-		           </td>
-			    </tr>
-			</table>
-		</form>
-		<div id="social_login"">
-			<button ng-click="logGoogle()">Google</button>
-			<button ng-click="logGitHub()">GitHub</button>
-		</div>
+<div class="loginpage">
 
-		<button ng-click="showRpass()" ng-show="butpassV">Recuperar contraseña</button>
-		<div id="content_revoery_passw" ng-show="recpassV">
-			<form id="recover_form" name="recover_form">
-				<input required type="text" name="inputUserr" id="inputUserr" ng-model="recover.inputUser" placeholder="Usuario" ng-minlength="3" ng-maxlength="20"/>
-			       		<span class="text-danger" ng-show="recover_form.inputUserr.$error.required && (recover_form.inputUserr.$dirty || recover_form.inputUserr.$touched)">Introduzca un nombre</span>
-	       				<span class="text-danger" ng-show="recover_form.inputUserr.$error.minlength">Introduzca mas de 3 caracteres</span>
-	       				<span class="text-danger" ng-show="recover_form.inputUserr.$error.maxlength">Introduzca menos de 20 caracteres</span>
+    <h1>LOGIN</h1>
+    <br>
 
-				<input type='submit' ng-click="recPass()" ng-show="recover_form.inputUserr.$valid" value="Enviar Correo"></input>
-			</form>
-		</div>
-	</div>
-	
-	<div id="content_register">
-		<h3>Register</h3>
-		<form id="register_form" name="register_form">
-			<table>
-			    <tr>
-			       	<td>Usuario: </td>
-			       	<td>
-			       		<input required type="text" name="inputUser" id="inputUser" ng-model="register.inputUser" placeholder="Usuario" ng-minlength="3" ng-maxlength="20"/>
-			       		<span class="text-danger" ng-show="register_form.inputUser.$error.required && (register_form.inputUser.$dirty || register_form.inputUser.$touched)">Introduzca un nombre</span>
-	       				<span class="text-danger" ng-show="register_form.inputUser.$error.minlength">Introduzca mas de 3 caracteres</span>
-	       				<span class="text-danger" ng-show="register_form.inputUser.$error.maxlength">Introduzca menos de 20 caracteres</span>
-			      	</td>
-			    </tr>
-			    <tr>
-			       	<td>Correo electronico: </td>
-			       	<td>
-			       		<input required type="email" name="inputEmail" id="inputEmail" ng-model="register.inputEmail" placeholder="Correo electronico"/>
-			       		<span class="text-danger" ng-show="register_form.inputEmail.$error.required && (register_form.inputEmail.$dirty || register_form.inputEmail.$touched)">Introduzca un correo electroncico</span>
-                		<span class="text-danger" ng-show="register_form.inputEmail.$error.email">Email no valido</span>
-			       	</td>
-			    </tr>
-			 	<tr>
-			       	<td>Contraseña: </td>
-			       	<td>
-			       		<input required type="password" name="inputPassword" id="inputPassword" ng-model="register.inputPassword" placeholder="Contraseña" ng-minlength="6" ng-maxlength="40"/>
-			       		<span class="text-danger" ng-show="register_form.inputPassword.$error.required && (register_form.inputPassword.$dirty || register_form.inputPassword.$touched)">Introduzca un contraseña</span>
-	       				<span class="text-danger" ng-show="register_form.inputPassword.$error.minlength">Introduzca mas de 6 caracteres</span>
-	       				<span class="text-danger" ng-show="register_form.inputPassword.$error.maxlength">Introduzca menos de 40 caracteres</span>
-			      	</td>
-			    </tr>
-			    <tr>
-			       	<td>Repetir contraseña: </td>
-			       	<td>
-			       		<input required type="password" name="inputRPassword" id="inputRPassword" ng-model="register.inputRPassword" placeholder="Repetir contraseña" ng-minlength="6" ng-maxlength="40"/>
-			       		<span class="text-danger" ng-show="register_form.inputRPassword.$error.required && (register_form.inputRPassword.$dirty || register_form.inputRPassword.$touched)">Introduzca un contraseña</span>
-	       				<span class="text-danger" ng-show="register_form.inputRPassword.$error.minlength">Introduzca mas de 6 caracteres</span>
-	       				<span class="text-danger" ng-show="register_form.inputRPassword.$error.maxlength">Introduzca menos de 40 caracteres</span>
-	       				<span class="text-danger" ng-show="register.inputRPassword != register.inputPassword && (register_form.inputRPassword.$dirty || register_form.inputRPassword.$touched)">Las contraseñas no coinciden</span>
-			      	</td>
-			    </tr>
-				<tr>
-			   		<td>
-			   			<input class="btn btn-primary" type="submit" id="sendRegister" name="sendRegister" value="Registrarse"
-		               ng-show="register_form.inputUser.$valid && register_form.inputEmail.$valid && register_form.inputPassword.$valid && register_form.inputRPassword.$valid && register.inputRPassword === register.inputPassword"
-		               ng-click="submitRegister()"/>
-		           </td>
-			    </tr>
-			</table>	
-		</form>
-	</div>
+    <form method="post" name="login_form" id="login_form">
+        <table id="tablelogin">
+            <tr>
+                <td>Email: </td>
+				<td>
+					<input required type="email" name="inputEmail" id="inputEmail" ng-model="login.inputEmail" placeholder="Email"/>
+					<span class="text-danger" ng-show="login_form.inputEmail.$error.required && (login_form.inputEmail.$dirty || login_form.inputEmail.$touched)">Introduce an email</span>
+					<span class="text-danger" ng-show="login_form.inputEmail.$error.email">Email not valid</span>
+				</td>
+            </tr>
+            <hr/><br><br>
+            <tr>
+                <td>Password: </td>
+				<td>
+					<input required type="password" name="inputPassword" id="inputPassword" ng-model="login.inputPassword" placeholder="Password" ng-minlength="6" ng-maxlength="40"/>
+					<span class="text-danger" ng-show="login_form.inputPassword.$error.required && (register_form.inputPassword.$dirty || register_form.inputPassword.$touched)">Introduce a password</span>
+					<span class="text-danger" ng-show="login_form.inputPassword.$error.minlength">Password with more than 6 words</span>
+					<span class="text-danger" ng-show="login_form.inputPassword.$error.maxlength">Password with less than 40 words</span>
+				</td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="btn btn-primary" type="button" id="log_in" name="log_in" value="Login"
+                    ng-show="login_form.inputEmail.$valid && login_form.inputPassword.$valid"
+                    ng-click="validate_login()">
+                </td>
+            </tr>
+            <tr>
+                <td><input type="button" name="log_in_google" id="log_in_google" value="GOOGLE" ng-click="login_google()"/></td>
+            </tr><tr>
+                <td><input type="button" name="log_in_github" id="log_in_github" value="GITHUB" ng-click="login_github()"/></td>
+            </tr>
+
+        </table>
+    </form>
+    Don't remember your password? <a href="#/recover_pass">Recover password</a><br>
+    Still not registered? <a href="#/register">Register here</a>
+
 </div>

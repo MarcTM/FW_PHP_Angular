@@ -5,33 +5,25 @@
 		}
 
 
+		function typeuser(){
+			$type = loadModel(MODEL_LOGIN, "login_model", "typeuser");
+			echo json_encode($type);
+		}
+		
 		function send_rec_mail(){
 			$result['token'] = loadModel(MODEL_LOGIN, "login_model", "send_rec_mail");
 			$result['email'] = $_POST['email'];
 
 			if($result['token']){
 				$mail = send_mail_recover($result);
-				echo json_encode("si");
+				echo "si";
 			}else{
-				echo json_encode("no");
+				echo "no";
 			}
 		}
 
-		// function new_pass(){
-		// 	if (isset($_GET['param'])) {
-		// 		$_SESSION['token'] = $_GET['param'];
-		// 	}
-
-		// 	require_once(VIEW_PATH_INC . "top/top_page_home.php");
-        // 	require_once(VIEW_PATH_INC . "menu.php");
-        // 	loadView('modules/login/view/', 'new_pass.php');
-		// 	require_once(VIEW_PATH_INC . "footer.html");
-		// 	require_once(VIEW_PATH_INC . "bottom_page.html");
-		// }
-
 		function update_pass(){
 			loadModel(MODEL_LOGIN, "login_model", "update_pass");
-			unset($_SESSION['token']);
 		}
 
 		function check_register(){
@@ -57,7 +49,7 @@
 				$_SESSION['avatar'] = $_POST['avatar'];
 				echo json_encode($result);
 			}else{
-				echo json_encode("no");
+				echo "no";
 			}
 		}
 
@@ -67,7 +59,7 @@
 			$_SESSION['user'] = $_POST['user'];
 			$_SESSION['avatar'] = $_POST['avatar'];
 
-			echo json_encode($token);
+			echo $token;
 		}
 		////////////////////
 		////////////////////
@@ -80,7 +72,7 @@
 		
 		function validate_login(){
 			$result = loadModel(MODEL_LOGIN, "login_model", "validate_login");
-			echo json_encode($result);
+			echo $result;
 		}	
 	
 	}

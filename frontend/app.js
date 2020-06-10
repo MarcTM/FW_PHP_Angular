@@ -76,6 +76,14 @@ function ($routeProvider, $locationProvider) {
 
                 .when("/aboutus", {templateUrl: "frontend/modules/aboutus/view/aboutus.view.html", controller: "aboutusCtrl"})
 
+                .when("/login", {templateUrl: "frontend/modules/login/view/login.view.html", controller: "loginCtrl"})
+
+                .when("/register", {templateUrl: "frontend/modules/login/view/register.view.html", controller: "registerCtrl"})
+
+                .when("/recover_pass", {templateUrl: "frontend/modules/login/view/recover.view.html", controller: "recoverCtrl"})
+
+                .when("/recover_pass/:token", {templateUrl: "frontend/modules/login/view/newpass.view.html", controller: "newpassCtrl"})
+
 
                 // .when("/ubication", {
                 //     templateUrl: "frontend/modules/ubication/view/ubication.view.html", 
@@ -100,8 +108,6 @@ function ($routeProvider, $locationProvider) {
                 //     }
                 // })
 
-                // .when("/login", {
-                //     templateUrl: "frontend/modules/login/view/login.view.html",controller: "loginCtrl"})
 
                 // .when("/login/changepass/:token", {
                 //     templateUrl: "frontend/modules/login/view/recpass.view.html",

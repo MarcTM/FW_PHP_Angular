@@ -1,0 +1,57 @@
+<div class="registerpage">
+
+    <h1>REGISTER</h1>
+    <br>
+
+    <form method="post" name="register_form" id="register_form">
+     <table id="tableregister">
+        <tr>
+                <td>User: </td>
+                <td>
+                    <input required type="text" name="inputUser" id="inputUser" ng-model="register.inputUser" placeholder="Username" ng-minlength="3" ng-maxlength="20"/>
+                    <span class="text-danger" ng-show="register_form.inputUser.$error.required && (register_form.inputUser.$dirty || register_form.inputUser.$touched)">Introduce a name</span>
+                    <span class="text-danger" ng-show="register_form.inputUser.$error.minlength">Name must have more than 3 characters</span>
+                    <span class="text-danger" ng-show="register_form.inputUser.$error.maxlength">Name must have less than 20 characters</span>
+               </td>
+        </tr>
+        <tr>
+                <td>Email: </td>
+                <td>
+                    <input required type="email" name="inputEmail" id="inputEmail" ng-model="register.inputEmail" placeholder="Email"/>
+                    <span class="text-danger" ng-show="register_form.inputEmail.$error.required && (register_form.inputEmail.$dirty || register_form.inputEmail.$touched)">Introduce an email</span>
+                 <span class="text-danger" ng-show="register_form.inputEmail.$error.email">Email not valid</span>
+                </td>
+        </tr>
+        <tr>
+                <td>Password: </td>
+                <td>
+                    <input required type="password" name="inputPassword" id="inputPassword" ng-model="register.inputPassword" placeholder="Password" ng-minlength="6" ng-maxlength="40"/>
+                    <span class="text-danger" ng-show="register_form.inputPassword.$error.required && (register_form.inputPassword.$dirty || register_form.inputPassword.$touched)">Introduzca un contraseña</span>
+                    <span class="text-danger" ng-show="register_form.inputPassword.$error.minlength">Password must have more than 6 characters</span>
+                    <span class="text-danger" ng-show="register_form.inputPassword.$error.maxlength">Password must have less than 40 characters</span>
+               </td>
+        </tr>
+        <tr>
+                <td>Repeat password: </td>
+                <td>
+                    <input required type="password" name="inputRPassword" id="inputRPassword" ng-model="register.inputRPassword" placeholder="Repeat password" ng-minlength="6" ng-maxlength="40"/>
+                    <span class="text-danger" ng-show="register_form.inputRPassword.$error.required && (register_form.inputRPassword.$dirty || register_form.inputRPassword.$touched)">Introduce a password</span>
+                    <span class="text-danger" ng-show="register_form.inputRPassword.$error.minlength">Password must have more than 6 characters</span>
+                    <span class="text-danger" ng-show="register_form.inputRPassword.$error.maxlength">Password must have less than 40 characters</span>
+                    <span class="text-danger" ng-show="register.inputRPassword != register.inputPassword && (register_form.inputRPassword.$dirty || register_form.inputRPassword.$touched)">Passwords don't match</span>
+               </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="btn btn-primary" type="submit" id="sendRegister" name="sendRegister" value="Register"
+                ng-show="register_form.inputUser.$valid && register_form.inputEmail.$valid && register_form.inputPassword.$valid && register_form.inputRPassword.$valid && register.inputRPassword === register.inputPassword"
+                ng-click="validate_register()">
+            </td>
+        </tr>
+
+     </table>
+    </form>
+    Already registered? <a href="#/login">Login here</a>
+
+
+</div>
