@@ -1,4 +1,4 @@
-# MARC PROJECT 1DAW <br> PHP FRAMEWORK & JQUERY
+# MARC PROJECT 1DAW <br> PHP FRAMEWORK & ANGULARJS
 
 
 This is a project with a PHP Framework and Js/Jquery.
@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 -VisualStudioCode <br />
 -LAMP/XAMP/WAMP <br />
--JQuery Libraries <br />
+-AngularJS Libraries <br />
    
 ### Installing
 
@@ -22,14 +22,8 @@ These instructions will get you a copy of the project up and running on your loc
 ## Built With
 
 * PHP Framework - Backend
-* JavaScript - Frontend
-* JQuery - Frontend (JS Framework)
+* AngularJS - Frontend
 
 ## Authors
 
 * **Marc Torres** - *Developer of the webpage*
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
-
