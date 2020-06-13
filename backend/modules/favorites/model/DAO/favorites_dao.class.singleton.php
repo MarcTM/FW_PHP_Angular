@@ -14,15 +14,15 @@ class favorites_dao {
     }
 
 
-    public function check_fav($db, $decodetoken) {
+    public function check_fav($db, $decodetoken, $prod) {
         $sql = "SELECT email FROM users WHERE IDuser = '$decodetoken'";
         $stmt = $db->ejecutar($sql);
         $result = $db->listar_arr($stmt);
         $email = $result[0]['email'];        
 
-        $sql = "SELECT DISTINCT prod FROM favorites WHERE email = '$email'";
+        $sql = "SELECT DISTINCT prod FROM favorites WHERE email = '$email' AND prod = '$prod'";
         $stmt = $db->ejecutar($sql);
-        return $db->listar_arr($stmt);
+        return $db->listar($stmt);
     }
 
     public function add_fav($db, $id, $decodetoken) {

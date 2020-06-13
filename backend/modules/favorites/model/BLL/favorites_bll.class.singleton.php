@@ -19,7 +19,7 @@
 
 		public function checkfav(){
 			$decodetoken = json_decode(decode_token($_POST['token']))->name;
-			return $this->dao->check_fav($this->db, $decodetoken);
+			return $this->dao->check_fav($this->db, $decodetoken, $_POST['prod']);
 		}
 
 		public function addfav(){
