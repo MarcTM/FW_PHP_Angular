@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="marcangular" ng-app lang="zxx">
 	<head>
-		<title>Angular Marc</title>
+		<title>PHP-Angular Marc</title>
 		<!-- custom-theme -->
 		<meta charset="utf-8">
     	<meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -27,12 +27,13 @@
 		<div ng-view></div>
 		<div ng-include='"frontend/assets/inc/footer.view.html"'></div>
 
- 		 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js"></script>
-	     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-route.min.js"></script>
-	     <script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+ 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-route.min.js"></script>
+	    <script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
 
 		<script src="frontend/app.js"></script>
 		<script src="frontend/modules/home/controller/home.controller.js"></script>
+		<script src="frontend/modules/cart/controller/cart.controller.js"></script>
 		<script src="frontend/modules/login/controller/login.controller.js"></script>
 		<script src="frontend/modules/shop/controller/shop.controller.js"></script>
 		<script src="frontend/modules/details/controller/details.controller.js"></script>
@@ -49,12 +50,13 @@
 		<script src="frontend/common.directives.js"></script>
 
 		<script src="frontend/assets/js/apikeys.js"></script>
-		<!-- <script src="frontend/assets/js/main.js"></script> -->
 
 
 		<!-- Login -->
 		<script type="text/javascript" src="frontend/modules/login/services/login.services.js"></script>
 		<script type="text/javascript" src="frontend/directives/favorites.directives.js"></script>
+		<script type="text/javascript" src="frontend/directives/cart.directives.js"></script>
+
 		<!-- SocialLogin -->
 		<script type="text/javascript" src="frontend/modules/login/services/logsocial.services.js"></script>
 

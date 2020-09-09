@@ -72,6 +72,8 @@ function ($routeProvider, $locationProvider) {
 
                 .when("/contact", {templateUrl: "frontend/modules/contact/view/contact.view.html", controller: "contactCtrl"})
 
+                .when("/cart", {templateUrl: "frontend/modules/cart/view/cart.view.html", controller: "cartCtrl"})
+
                 .when("/services", {templateUrl: "frontend/modules/services/view/services.view.html", controller: "servicesCtrl"})
 
                 .when("/aboutus", {templateUrl: "frontend/modules/aboutus/view/aboutus.view.html", controller: "aboutusCtrl"})

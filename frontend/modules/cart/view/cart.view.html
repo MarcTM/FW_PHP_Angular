@@ -1,0 +1,17 @@
+<div class="cart">
+
+    <div ng-show="cartnoresults" id="cartdetails">
+        <p class="emptycart"><b>CART IS EMPTY</b></p>
+        <div class="gotoshop"><input type="button" id="gotoshop" value="GO TO SHOP"></div>
+    </div>
+
+
+
+    <div ng-show="cartresults">
+        <div id="leftcart"><div class="cartrow" ng-repeat="cart in cartc">   
+            <table class='tablecart'><tr><td><img class='imgcart' id="{{cart.idproduct}}" src="{{cart.img}}"/></td><td><b>{{cart.product}} - {{cart.brand}}</b><br><br>{{cart.kg}}Kg {{cart.flavour}}<br>Preferred consumption: {{cart.datecaducity}}<br><br><b>{{cart.price}}€</b><br><input type='button' class='deletefromcart' id="{{cart.idproduct}}" value='DELETE FROM CART' cart-directive-delete /></td><td><b>{{cart.total}}€</b><br><input type='number' class='changeq' id="{{cart.idproduct}}" min='1' max='99' style='width: 7em' value="{{cart.quantity}}"/></td></tr></table>
+        </div></div>
+        <div id="rightcart">CHECKOUT</div>
+    </div>
+        
+</div>

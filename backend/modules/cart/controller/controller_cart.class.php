@@ -17,7 +17,7 @@
 
 		function addproduct(){
 			$json = loadModel(MODEL_CART, "cart_model", "addproduct");
-			echo json_encode($json);
+			echo $json;
 		}
 
 		function localdb(){
